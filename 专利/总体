@@ -1,0 +1,27 @@
+---
+config:
+  layout: dagre
+  theme: default
+  look: classic
+---
+flowchart TB
+    A["Input:  部分点云"] --> B["PointNet++"]
+    C["Input: 姿态 p"] --> D["MLP Encoder"]
+    E["Input: 时间步 t"] --> F["MLP Encoder"]
+    B --> G["Global Feature Fo"]
+    D --> H["Pose Feature Fp"]
+    F --> I["Time Feature Ft"]
+    G --> J["Feature Concat"]
+    H --> J
+    I --> J
+    J -->  L["Branch: ∇R Score"] & M["Branch: ∇T Score"]
+    %% K --> N["Grad Rx"]
+    L --> O["Grad R"]
+    M --> P["Grad T"]
+    %% N --> Q["ODE"]
+    O --> Q["ODE"]
+    P --> Q
+    Q --> W["{p̂₁, p̂₂, …, p̂₅₀}"]
+    style Q fill:#9f9,stroke:#333
+    %% style S fill:#bbf,stroke:#333
+    style W fill:#f96,stroke:#333
